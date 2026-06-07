@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    overflow:hidden;
+    color:white;
+    text-align:center;
+}
+
+.page{
+    position:absolute;
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    transition:1s;
+}
+
+h1{
+    margin-bottom:20px;
+    font-size:2.5rem;
+}
+
+.cake-container{
+    position:relative;
+    width:280px;
+    height:280px;
+}
+
+.cake{
+    width:100%;
+    border-radius:20px;
+    transition:1s;
+}
+
+/* Replace cake.jpg with your uploaded cake image */
+.cake{
+    content:url("cake.jpg");
+}
+
+.cut-left{
+    clip-path:polygon(0 0,50% 0,45% 100%,0 100%);
+    transform:translateX(-30px);
+}
+
+.cut-right{
+    clip-path:polygon(55% 0,100% 0,100% 100%,50% 100%);
+    transform:translateX(30px);
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    cursor:pointer;
+    background:white;
+    color:#ff4081;
+    font-weight:bold;
+}
+
+.hidden{
+    display:none;
+}
+
+.fade-out{
+    opacity:0;
+}
+
+.message{
+    opacity:0;
+    transform:translateY(20px);
+    transition:1s;
+    margin:15px;
+    font-size:1.4rem;
+}
+
+.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.emoji{
+    position:absolute;
+    font-size:25px;
+    animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-100px);
+    }
+    to{
+        transform:translateY(110vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+    <h1>Happy Birthday My Love ❤️</h1>
+
+    <div style="font-size:40px;">🎈 ❤️ 🎉 🎂 ❤️ 🎈</div>
+
+    <div class="cake-container">
+        <img src="cake.jpg" class="cake" id="cakeImage">
+    </div>
+
+    <button onclick="cutCake()">🎂 Cut Cake</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page hidden" id="page2">
+    <h1>I Love You Zainab ❤️</h1>
+
+    <div class="message" id="msg1">
+        💖 You are the most beautiful part of my life.
+    </div>
+
+    <div class="message" id="msg2">
+        🌹 Every moment with you is special.
+    </div>
+
+    <div class="message" id="msg3">
+        ✨ My heart belongs to you forever.
+    </div>
+
+    <div class="message" id="msg4">
+        ❤️ Happy Birthday My Love ❤️
+    </div>
+</div>
+
+<script>
+function createConfetti(){
+    const emojis = ["🎉","❤️","✨","🎈","💖"];
+
+    for(let i=0;i<60;i++){
+        let e = document.createElement("div");
+        e.classList.add("emoji");
+        e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+        e.style.left = Math.random()*100 + "vw";
+        e.style.animationDuration = (Math.random()*3+2) + "s";
+        document.body.appendChild(e);
+    }
+}
+
+function cutCake(){
+
+    createConfetti();
+
+    document.getElementById("cakeImage").style.transform =
+    "scale(1.05) rotate(-2deg)";
+
+    setTimeout(()=>{
+        document.getElementById("page1").classList.add("fade-out");
+
+        setTimeout(()=>{
+            document.getElementById("page1").classList.add("hidden");
+            document.getElementById("page2").classList.remove("hidden");
+
+            const msgs = ["msg1","msg2","msg3","msg4"];
+
+            msgs.forEach((id,index)=>{
+                setTimeout(()=>{
+                    document.getElementById(id).classList.add("show");
+                }, index*1500);
+            });
+
+        },1000);
+
+    },1500);
+}
+</script>
+
+</body>
+</html>
